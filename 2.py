@@ -2,6 +2,7 @@
 # 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...
 # By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
 
+from functools import cache
 def fibonaccinumbers():
     numbers = [1, 2]
     while numbers[-1] < 4_000_000:
@@ -9,10 +10,21 @@ def fibonaccinumbers():
     numbers.pop()
     return numbers
 
+@cache
+def fibonacciNum(n):
+    if n == 1:
+       return 1
+    if n == 2:
+        return 2
+    return fibonacciNum(n - 1) + fibonacciNum(n - 2)
+# f(n) -> nth fibonacci
+# f(n) -> f(n - 1) + f(n - 2)
+# recursive backtracking
+
 sequence = fibonaccinumbers()
 evenFibs = [num for num in sequence if num % 2 == 0]
 
 # all of the numbers from 1 - 10 doubled if it's a multiple of 3
 # print([i * 2 for i in range(1, 11) if i % 3 == 0])
-
+print(fibonacciNum(500))
 print(sum(evenFibs))
